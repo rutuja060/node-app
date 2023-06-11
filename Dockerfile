@@ -1,6 +1,6 @@
 # Install the base requirements for the app.
 # This stage is to support development.
-FROM --platform=$BUILDPLATFORM python:alpine AS base
+FROM python:3.9-alpine AS base
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
@@ -29,7 +29,7 @@ FROM --platform=$BUILDPLATFORM base AS dev
 CMD ["mkdocs", "serve", "-a", "0.0.0.0:8000"]
 
 # Do the actual build of the mkdocs site
-FROM --platform=$BUILDPLATFORM base AS build
+FROM python:3.9-alpine AS base
 COPY . .
 RUN mkdocs build
 
